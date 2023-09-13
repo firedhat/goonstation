@@ -6,6 +6,7 @@
 name: Nightly
 
 on:
+  push: # TODO: remove this if PR'd to goon
   schedule:
     - cron: '16 23 * * *'
 
@@ -19,6 +20,7 @@ jobs:
         map: ["ATLAS", "DEVTEST"]
     steps:
       - uses: actions/checkout@v3
+      # TODO: if running outside of goon, use an explicit reference to goonstation/goonstation
 
       - name: Cache BYOND
         uses: actions/cache@v3
@@ -43,11 +45,11 @@ jobs:
       
       - name: Package
         run: |
-          cd ${{github.workspace}}
-          zip -9lrq ${{matrix.map}}-nightly.zip goonstation.dmb goonstation.rsc sound strings assets LICENSE rust_g.dll
+          mkdir packaged
+          mv goonstation.dmb goonstation.rsc sound strings assets LICENSE rust_g.dll ./packaged
 
       - name: Upload
         uses: actions/upload-artifact@v3
         with:
-          name: ${{matrix.map}}-nightly
-          path: ${{github.workspace}}/${{matrix.map}}-nightly.zip
+          name: GoonNightly${{matrix.map}}
+          path: ${{github.workspace}}/packaged
