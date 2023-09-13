@@ -45,8 +45,8 @@ jobs:
       
       - name: Package
         run: |
-          mkdir packaged
-          mv goonstation.dmb goonstation.rsc sound strings assets LICENSE rust_g.dll ./packaged
+          mkdir -p packaged/goonstation
+          mv goonstation.dmb goonstation.rsc sound strings assets browserassets LICENSE rust_g.dll ./packaged/goonstation
 
       - name: Upload
         uses: actions/upload-artifact@v3
