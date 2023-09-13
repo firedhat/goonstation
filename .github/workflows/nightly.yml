@@ -6,7 +6,7 @@
 name: Nightly
 
 on:
-  push: # TODO: remove this if PR'd to goon
+  workflow_dispatch:
   schedule:
     - cron: '16 23 * * *'
 
